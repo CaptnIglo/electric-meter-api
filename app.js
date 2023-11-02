@@ -23,7 +23,11 @@ app.use("/users", usersRouter);
 
 //TODO: how to handle single updates (e.g. activate device)?
 //TODO: how to update priority (whole list needs to be updated)
-app.route("/api/devices/").get();
+app.route("/api/devices/").get((req, res) => {
+  pool.query("SELECT * from devices").then((devices) => {
+    res.json(devices);
+  });
+});
 app.route("api/device/:id").get().put();
 app.route("api/data").get();
 
